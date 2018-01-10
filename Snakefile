@@ -9,8 +9,8 @@ import glob
 
 PROJECT_DIR = '/projects/ezhao_prj/analyses/hrdetect-pipeline'
 PURDOM_BOOTSTRAP_ITERATIONS = '1000'
-SIGNIT_PATH = '/projects/ezhao_prj/papers/SignIT-paper/analysis/scripts/SignIT'
-HRDTOOLS_PATH = '/projects/ezhao_prj/dependencies/packages/hrdtools'
+SIGNIT_PATH = 'git/SignIT'
+HRDTOOLS_PATH = 'git/hrdtools'
 
 newline_re = re.compile(r'\s*\n\s*')
 def replace_newlines(input_string):

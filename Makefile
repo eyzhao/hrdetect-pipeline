@@ -5,11 +5,9 @@ project_root := /projects/ezhao_prj/analyses/hrdetect-pipeline
 ### Directory Structure ###
 ###########################
 
-meta:
-	mkdir -p meta
-
-paths:
-	mkdir -p paths
+all: \
+	git/hrdtools \
+	git/SignIT
 
 #################
 ### Load Code ###
@@ -22,8 +20,14 @@ dependencies:
 	fi && \
 	make
 
-scripts/SignIT:
+git/SignIT:
 	if [ -d $@ ]; \
 	then(cd $@ && git pull); \
 	else git clone git@github.com:eyzhao/SignIT.git $@; \
+	fi
+
+git/hrdtools:
+	if [ -d $@ ]; \
+	then(cd $@ && git pull); \
+	else git clone git@github.com:eyzhao/hrdtools.git $@; \
 	fi
