@@ -2,7 +2,9 @@
 
 This repository contains an implementation of HRDetect used by Eric Y. Zhao at the Genome Sciences Centre.
 
-HRDetect is run via a [Snakemake](http://snakemake.readthedocs.io/en/latest/) pipeline. It depends upon a working installation of R, with numerous dependencies. These may be installed by running `make dependencies`, which builds a miniconda environment with the necessary installations. Depending on your system and needs, some of these dependencies may require tweaking. Notably, the dependency installer assumes a linux-based environment.
+HRDetect is run via a [Snakemake](http://snakemake.readthedocs.io/en/latest/) pipeline. It depends upon a working installation of R, with numerous dependencies. These may be installed by running `make dependencies`, which builds a miniconda environment with the necessary installations. To source that environment after it is installed, simply run `source dependencies/miniconda3/bin/activate dependencies` prior to running the pipeline.
+
+Depending on your system and needs, some of these dependencies may require tweaking. Notably, the dependency installer assumes a linux-based environment.
 
 Also necessary are two in-house tools called `SignIT` and `hrdtools`, which can be acquired by running `make`.
 
