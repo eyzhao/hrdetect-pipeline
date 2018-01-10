@@ -11,13 +11,13 @@ args <- docopt(doc)
 
 library(tidyverse)
 
-microhomology <- read_tsv(args[['indels']]) %>%
+microhomology <- read_tsv(args[['indels']], col_types=cols(is_microhomology=col_logical())) %>%
     summarise(
         deletion_microhomology_count = sum(is_microhomology),
         deletion_count = n()
     ) %>%
     mutate(
-        deletion_microhomology_proportion = deletion_microhomology_count / deletion_count
+        deletion_microhomology_proportion = if_else(deletion_count == 0, 0, deletion_microhomology_count / deletion_count)
     )
 
 write_tsv(microhomology, args[['output']])

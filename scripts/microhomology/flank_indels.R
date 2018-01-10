@@ -63,11 +63,20 @@ parse_indel <- function(indel_vcf_path) {
 get_flanking_sequence <- function(indel_vcf_path) {
     print(indel_vcf_path)
     indels <- parse_indel(as.character(indel_vcf_path))
+
     print(paste('Number of indels:', dim(indels)[1]))
+
     print('retrieving flanking sequences')
-    five_prime_flank <- getSeq(hg19, paste0('chr', indels$seqnames), indels$start - 25, indels$start)
-    three_prime_flank <- getSeq(hg19, paste0('chr', indels$seqnames), indels$end + 1, indels$end + 26)
-    deleted <- as.character(sapply(indels$REF, function(z) {substring(z, 2, nchar(z))}))
+
+    if (dim(indels)[1] > 0) {
+        five_prime_flank <- getSeq(hg19, paste0('chr', indels$seqnames), indels$start - 25, indels$start)
+        three_prime_flank <- getSeq(hg19, paste0('chr', indels$seqnames), indels$end + 1, indels$end + 26)
+        deleted <- as.character(sapply(indels$REF, function(z) {substring(z, 2, nchar(z))}))
+    } else {
+        five_prime_flank <- c()
+        three_prime_flank <- c()
+        deleted <- c()
+    }
     return(cbind(indels, tibble(deleted = as.character(deleted),
                                 five_prime_flank = as.character(five_prime_flank), 
                                 three_prime_flank = as.character(three_prime_flank))))
@@ -93,18 +102,23 @@ microhomology_summary <- function(indel_table) {
 
     print('computing match statistics')
 
-    three_prime <- apply(indel_table, 1, function(z) {
-        get_match_length(z['deleted'], z['three_prime_flank'])
-    })
+    if (dim(indel_table)[1] > 0) {
+        three_prime <- apply(indel_table, 1, function(z) {
+            get_match_length(z['deleted'], z['three_prime_flank'])
+        })
 
-    five_prime <- apply(indel_table, 1, function(z) {
-        get_match_length(rev_char(z['deleted']), rev_char(z['five_prime_flank']))
-    })
+        five_prime <- apply(indel_table, 1, function(z) {
+            get_match_length(rev_char(z['deleted']), rev_char(z['five_prime_flank']))
+        })
 
-    max_match <- apply(cbind(three_prime, five_prime), 1, max)
+        max_match <- apply(cbind(three_prime, five_prime), 1, max)
 
-    indel_table$microhomology_length <- max_match
-    indel_table$is_microhomology <- max_match > 2
+        indel_table$microhomology_length <- max_match
+        indel_table$is_microhomology <- max_match > 2
+    } else {
+        indel_table$microhomology_length <- numeric()
+        indel_table$is_microhomology <- logical()
+    }
 
     return(indel_table)
 }

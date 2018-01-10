@@ -50,22 +50,23 @@ label_clustered <- function(sv_table) {
 
     mean_distance <- mean(breakpoints$distance)
 
+    print('clustered regions')
+
     clustered_regions <- breakpoints %>% 
         dplyr::select(chr, pos, distance) %>% 
         as.data.frame %>%
         pcf(kmin = 10, gamma = 25) %>%
         filter(mean < mean_distance / 10) %>%
-        dplyr::select(chr = chrom, start = start.pos, end = end.pos) %>% 
-        GRanges()
+        dplyr::select(chr = chrom, start = start.pos, end = end.pos) 
 
-    if (length(clustered_regions) == 0) {
+    if (dim(clustered_regions)[1] == 0) {
         breakpoints$clustered <- FALSE
     } else {
         clustered_breakpoint_indices <- breakpoints %>% 
             mutate(start = pos, end = pos + 1) %>% 
             dplyr::select(chr, start, end, id) %>% 
             GRanges() %>% 
-            findOverlaps(clustered_regions) %>% 
+            findOverlaps(clustered_regions %>% GRanges()) %>% 
             queryHits()
 
         breakpoints <- breakpoints %>% 
@@ -102,7 +103,7 @@ calculate_sv_catalog <- function(sv_table) {
         sv_catalog <- sv_table %>% 
             label_clustered %>% 
             mutate(
-                length = ifelse(type == 'TRA', NA, pos2-pos1), 
+                length = ifelse(type == 'TRA', 0, pos2-pos1), 
                 length = cut(length, SV_LENGTH_BREAKS, labels = SV_BREAK_NAMES) %>% as.character
             ) %>% 
             replace_na(
@@ -122,6 +123,7 @@ calculate_sv_catalog <- function(sv_table) {
             )
     }
 
+    print(sv_catalog %>% as.data.frame())
     return(sv_catalog %>%
         unite(
             'mutation_type',
@@ -130,7 +132,13 @@ calculate_sv_catalog <- function(sv_table) {
         ))
 }
 
-sv_table <- read_tsv(args[['input']]) %>%
+sv_table <- read_tsv(args[['input']], col_types = cols(
+        chr1 = col_character(),
+        pos1 = col_integer(),
+        chr2 = col_character(),
+        pos2 = col_integer(),
+        type = col_character()
+    )) %>%
     calculate_sv_catalog() %>%
     write_tsv(args[['output']])
 

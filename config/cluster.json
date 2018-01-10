@@ -1,0 +1,12 @@
+{
+    "__default__" :
+    {
+        "mem_mb" : 1000,
+        "flags" : ""
+    },
+    "mutation_catalogs" :
+    {
+        "mem_mb" : 4000
+    }
+}
+ 

@@ -36,7 +36,14 @@ print('done')
 
 print('Running HRDtools test')
 
-run_test(args[['loh']], genome=args[['genome']]) %>%
+loh_ranges <- read_tsv(args[['loh']]) %>% as.data.frame %>% GRanges
+
+run_test(
+    loh_ranges, 
+    loh.col = 'lohtype',
+    cnv.col = 'copy_number',
+    genome = args[['genome']]
+) %>%
     as_tibble() %>%
     write_tsv(args[['output']])
 
