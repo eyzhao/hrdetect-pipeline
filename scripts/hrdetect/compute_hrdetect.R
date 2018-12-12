@@ -1,10 +1,17 @@
 ' compute_hrdetect.R
 
+From the HRDetect input table created by hrdetect_input_table.R, this script runs the HRDetect
+computation using the logistic model described by Davies et al. (2017)
+https://www.ncbi.nlm.nih.gov/pubmed/28288110
+
 Usage: compute_hrdetect.R -i INPUT -o OUTPUT
 
 Options:
     -i --input INPUT       Path to input HRDetect table
     -o --output OUTPUT     Path to output table with HRDetect data
+
+Examples:
+    Rscript hrdetect/compute_hrdetect.R -i hrdetect_input.tsv -o hrdetect_results.tsv
 ' -> doc
 
 library(docopt)

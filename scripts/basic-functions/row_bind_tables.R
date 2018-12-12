@@ -1,5 +1,8 @@
 ' row_bind_tables.R
 
+Given a set of tab separated values (TSV) files with identical headers,
+combines the rows of the tables into a single output TSV file.
+
 Usage: row_bind_tables.R ( -p PATHS | -i INPUT | -G GLOB ) -o OUTPUT
 
 Options:
@@ -7,6 +10,10 @@ Options:
     -i --input INPUT            Path to a file containing paths to tables, one per line
     -G --glob GLOB              Globstring matching paths
     -o --output OUTPUT          Path to output
+
+Examples:
+    Rscript basic-functions/row_bind_tables.R -p file1.tsv,file2.tsv,file3.tsv -o combined_file.tsv
+    Rscript basic-functions/row_bind_tables.R -G file*.tsv -o combined_file.tsv
 ' -> doc
 
 library(docopt)

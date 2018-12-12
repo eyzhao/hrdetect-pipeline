@@ -1,5 +1,12 @@
 ' hrdetect_input_table.R
 
+Gathers data necessary for HRDetect calculation into a single table.
+The necessary inputs are 
+    1. HRD scores: output by hrdscore/run_test.R
+    2. SNV signatures: output by running signatures/signit_summary_table.R on SNV mutation catalog from signatures/get_mutation_catalog.R
+    3. SV signatures: output by running signatures/signit_summary_table.R on SV mutation catalog from sv/calculate_sv_catalog.R
+    4. Microhomology scores: output by running microhomology/compute_microhomology_scores.R
+
 Usage: hrdetect_input_table.R (-i PATH)... -o OUTPUT
 
 Options:
@@ -7,7 +14,7 @@ Options:
     -o --output OUTPUT      Path to output file with merged data
 
 Example:
-    hrdetect_input_table.R -i path/to/hrdscore -i path/to/microhomology
+    hrdetect/hrdetect_input_table.R -i hrd_results.tsv -i microhomology_results.tsv -i snv_signatures.tsv -i sv_signatures.tsv -o hrdetect_input.tsv
 ' -> doc
 
 library(docopt)

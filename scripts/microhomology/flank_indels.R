@@ -1,9 +1,17 @@
-' 
+' flank_indels.R
+
+Pulls flanking sequences around insertions/deletions (indels) using the reference genome.
+This is the necessary pre-processing step before computing microhomology scores.
+
+Required input is insertion/deletion (indel) calls in Variant Call Format (VCF).
+
 Usage: flank_indels.R -v VCF -o OUTPUT
 
 Options:
     -v --vcf VCF            Variant call file with indels
     -o --output OUTPUT      Path to output table of annotated indels
+
+Example: microhomology/flank_indels.R -v indel_calls.vcf -o annotated_indels.tsv
 ' -> doc
 
 library(docopt)

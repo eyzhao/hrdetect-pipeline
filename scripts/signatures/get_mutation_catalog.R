@@ -1,16 +1,29 @@
-' run_deconstructsigs.R - Wrapper for deconstructsigs to compute mutation signatures
+' get_mutation_catalog.R - Computes counts table of mutation types.
 
-Usage: deconstructsigs_script.R ( -m MAF | -v VCF ) -c CATALOG [ -x -r REFERENCE ]
+Determines mutation catalog using a 96 type classification, as defined by Alexandrov et al. (2013).
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3588146/.
+
+Required input is variants in either VCF or MAF format.
+For MAF format, the column names are
+- Chromosome: chromosome names, matching the reference genome chromosome names
+- Start_Position: numeric value indicating the starting position
+- Reference_Allele: reference allele base (T, C, A, or G)
+- Allele: somatic mutation allele (T, C, A, or G)
+
+Usage: get_mutation_catalog.R ( -m MAF | -v VCF ) -c CATALOG [ -x -r REFERENCE ]
 
 Options:
     -m MAF              SNV input in MAF format
     -v VCF              SNV input in VCF format
-    -c CATALOG          Output to mutation catalog, computed by deconstructSigs
+    -c CATALOG          Output path - mutation catalog
     -r REFERENCE        Reference genome name. Either hg19 or GRCh38. Default is hg19.
 
-    -x --exome          Flag to indicate the variants were called from exome, which will
-                            trigger the script to apply trinucleotide frequency correction
-                            and adjust for mutation
+Examples:
+    Somatic variants in MAF format, using GRCh38 (example: for TCGA)
+    Rscript signatures/get_mutation_catalog.R -m somatic_variants.maf -c mutation_catalog.tsv -r GRCh38
+
+    Somatic variants in VCF format, using hg19
+    Rscript signatures/get_mutation_catalog.R -v somatic_variants.vcf -c mutation_catalog.tsv
 ' -> doc
 
 library(docopt)
@@ -18,7 +31,6 @@ args <- docopt(doc)
 print(args)
 
 library(tidyverse)
-library(deconstructSigs)
 library(stringr)
 
 if (! is.null(args[['m']])) {
@@ -75,13 +87,6 @@ if (!is.null(args[['r']])) {
                                     ref = 'ref',
                                     alt = 'alt')
     }
-}
-
-if (args[['exome']]) {
-    correction = 'exome2genome'
-    print('Running mutation signature detection using Exome to Genome trinucleotide frequency correction')
-} else {
-    correction = 'default'
 }
 
 catalog %>% t %>% as.data.frame %>% `colnames<-`(c('count')) %>% rownames_to_column('mutation_type') %>% write_tsv(args[['c']])
