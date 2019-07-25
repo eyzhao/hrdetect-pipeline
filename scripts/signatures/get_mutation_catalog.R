@@ -32,6 +32,7 @@ print(args)
 
 library(tidyverse)
 library(stringr)
+library(deconstructSigs)
 
 if (! is.null(args[['m']])) {
     mutations <- read_tsv(args[['m']], 
