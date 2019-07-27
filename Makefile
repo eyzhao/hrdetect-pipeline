@@ -1,4 +1,4 @@
-dependencies_repo_url := git@github.com:eyzhao/bio-pipeline-dependencies.git
+dependencies_repo_url := https://github.com/eyzhao/bio-pipeline-dependencies.git
 project_root := /projects/ezhao_prj/analyses/hrdetect-pipeline
 
 ###########################
@@ -23,11 +23,11 @@ dependencies:
 git/SignIT:
 	if [ -d $@ ]; \
 	then(cd $@ && git pull); \
-	else git clone git@github.com:eyzhao/SignIT.git $@; \
+	else git clone https://github.com/eyzhao/SignIT.git $@; \
 	fi
 
 git/hrdtools:
 	if [ -d $@ ]; \
 	then(cd $@ && git pull); \
-	else git clone git@github.com:eyzhao/hrdtools.git $@; \
+	else git clone https://github.com/eyzhao/hrdtools.git $@; \
 	fi

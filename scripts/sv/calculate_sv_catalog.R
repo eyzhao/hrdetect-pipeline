@@ -1,5 +1,11 @@
 ' calculate_sv_catalog.R
 
+Given a set of structural variants, this script computes the SV classification based on
+SV type, size, and clustering. It follows the methodology described by
+Nik-Zainal (2016), https://www.nature.com/articles/nature17676.
+
+You can then run signatures/signit_exposures.R, using the SV catalog as input.
+
 Usage: calculate_sv_catalog.R -i INPUT -o OUTPUT
 
 Options:
@@ -11,6 +17,9 @@ Options:
                                 type: SV type with values DEL, DUP, INV, TRA
     
     -o --output OUTPUT      Path to output mutation catalog table
+
+Examples:
+    Rscript sv/calculate_sv_catalog.R -i sv_calls.tsv -o sv_catalog.tsv
 ' -> doc
 
 library(docopt)
