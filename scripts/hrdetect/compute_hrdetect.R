@@ -100,19 +100,19 @@ get_hrdetect_score <- function(hrd_table) {
 }
 
 input_table <- read_tsv(args[['input']]) %>%
-    select(-data_type) %>%
-    group_by(variable) %>%
+    select(-paths) %>%
+    group_by(signature) %>%
     mutate(
         value = log(value + 1),
         value = (value - mean(value)) / sd(value)
     ) %>%
     ungroup() %>%
-    spread(variable, value) %>%
+    spread(signature, value) %>%
     select(
         patient,
         sample,
-        deletion_microhomology_proportion, 
-        hrd_score = total, 
+        deletion_microhomology_proportion = `Deletion Microhomology Proportion`, 
+        hrd_score = `HRD score`, 
         snv_signature_3 = `Signature 3`, 
         snv_signature_8 = `Signature 8`, 
         rearrangement_signature_3 = `Rearrangement Signature 3`, 

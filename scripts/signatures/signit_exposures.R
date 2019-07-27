@@ -40,7 +40,8 @@ if (is.null(args[['reference']])) {
 reference <- get(data(list = ref_name))
 print(reference)
 
-exposures <- get_exposures(file = args[['catalog']], reference_signatures = reference, n_chains = 4, n_cores = 4)
+catalog <- read_tsv(args[['catalog']])
+exposures <- get_exposures(catalog, reference_signatures = reference, n_chains = 4, n_cores = 4)
 
 print('SignIT Analysis Complete.')
 
