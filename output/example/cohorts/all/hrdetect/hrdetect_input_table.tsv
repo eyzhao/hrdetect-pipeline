@@ -1,0 +1,19 @@
+paths	patient	sample	signature	value
+output/example/patients/patient1/sample1/hrdetect_components.tsv	patient1	sample1	HRD score	52
+output/example/patients/patient1/sample1/hrdetect_components.tsv	patient1	sample1	Signature 3	2954.337619160247
+output/example/patients/patient1/sample1/hrdetect_components.tsv	patient1	sample1	Signature 8	2761.991357648336
+output/example/patients/patient1/sample1/hrdetect_components.tsv	patient1	sample1	Rearrangement Signature 3	2.3501802165354895
+output/example/patients/patient1/sample1/hrdetect_components.tsv	patient1	sample1	Rearrangement Signature 5	35.12426251015669
+output/example/patients/patient1/sample1/hrdetect_components.tsv	patient1	sample1	Deletion Microhomology Proportion	0.29435897435897435
+output/example/patients/patient2/sample1/hrdetect_components.tsv	patient2	sample1	HRD score	38
+output/example/patients/patient2/sample1/hrdetect_components.tsv	patient2	sample1	Signature 3	1618.4352026422202
+output/example/patients/patient2/sample1/hrdetect_components.tsv	patient2	sample1	Signature 8	2006.5106514673726
+output/example/patients/patient2/sample1/hrdetect_components.tsv	patient2	sample1	Rearrangement Signature 3	2.852466045178755
+output/example/patients/patient2/sample1/hrdetect_components.tsv	patient2	sample1	Rearrangement Signature 5	4.283188430629596
+output/example/patients/patient2/sample1/hrdetect_components.tsv	patient2	sample1	Deletion Microhomology Proportion	0.1210762331838565
+output/example/patients/patient3/sample1/hrdetect_components.tsv	patient3	sample1	HRD score	38
+output/example/patients/patient3/sample1/hrdetect_components.tsv	patient3	sample1	Signature 3	309.5164489773979
+output/example/patients/patient3/sample1/hrdetect_components.tsv	patient3	sample1	Signature 8	973.6926107133213
+output/example/patients/patient3/sample1/hrdetect_components.tsv	patient3	sample1	Rearrangement Signature 3	5.712474912877039
+output/example/patients/patient3/sample1/hrdetect_components.tsv	patient3	sample1	Rearrangement Signature 5	34.357518153265104
+output/example/patients/patient3/sample1/hrdetect_components.tsv	patient3	sample1	Deletion Microhomology Proportion	0.14772727272727273

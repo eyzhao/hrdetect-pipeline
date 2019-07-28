@@ -1,5 +1,7 @@
 # HRDetect
 
+This implementation of the HRDetect pipeline is intended for RESEARCH USE ONLY and NOT FOR THE PURPOSE OF INFORMING CLINICAL DECISION-MAKING.
+
 This repository contains an implementation of [HRDetect](https://www.nature.com/articles/nm.4292) used by Eric Y. Zhao at the Genome Sciences Centre.
 
 HRDetect is run via a [Snakemake](http://snakemake.readthedocs.io/en/latest/) pipeline. It depends upon a working installation of R, with numerous dependencies. These may be installed by running `make dependencies`, which builds a miniconda environment with the necessary installations. To source that environment after it is installed, simply run `source dependencies/miniconda3/bin/activate dependencies` prior to running the pipeline.
@@ -46,6 +48,17 @@ If you would like to use the Snakemake pipeline as is, then you can provide a pr
 
 If you would like to construct your own pipeline structure, please feel free to use the scripts in the `scripts` folder as needed.
 
+## Example pipeline
+
+For those interested in constructing their own working pipeline using Snakemake, there is an example project named `example` within this repository to demonstrate how this could work.
+
+- An example of raw input data can be found in `examples/example`.
+- This example data is copied and/or processed into the appropriate format, which is then stored in `data/example`. The Snakemake pipeline commands that pre-process the raw data are found in `projects/example.smk`.
+- The expected output after running the full pipeline can be found in `output/example`
+- The `Snakefile` is currently set up to run this example data. If you would like to run an integration test yourself, try deleting part or all of `output/example` and `data/example` and running `snakemake -p` (adding `-p` doesn't change how Snakemake runs, but will show you the commands being issued in each step).
+
+Note that you may still run into errors/issues depending on your specific environment setup. As this pipeline has not yet been tested across a wide variety of environments, we are continuing to work out the kinks.
+
 ## segments.tsv
 
 This is a file with segmented CNV/LOH calls with at least 5 columns.
@@ -82,7 +95,7 @@ A tab-delimited file with structural variant data. Should contain the following 
 
 # Citation
 
-If you use HRDtools in your publication, please cite the following study:
+If you use HRDtools or this implementation of HRDetect in your publication, please cite the following study:
 
 [Zhao EY, Shen Y, Pleasance E, ... Jones SJM, Homologous Recombination Deficiency and Platinum-Based Therapy Outcomes in Advanced Breast Cancer. Clinical Cancer Research. 2017 Dec 15;23(24):7521-7530](https://www.ncbi.nlm.nih.gov/pubmed/29246904)
 
