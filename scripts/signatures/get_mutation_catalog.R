@@ -16,7 +16,7 @@ Options:
     -m MAF              SNV input in MAF format
     -v VCF              SNV input in VCF format
     -c CATALOG          Output path - mutation catalog
-    -r REFERENCE        Reference genome name. Either hg19 or GRCh38. Default is hg19.
+    -r --ref REFERENCE        Reference genome name. Either hg19 or GRCh38. Default is hg19.
 
 Examples:
     Somatic variants in MAF format, using GRCh38 (example: for TCGA)
@@ -69,8 +69,8 @@ if (! is.null(args[['m']])) {
 
 print(mutations %>% as_tibble)
 
-if (!is.null(args[['r']])) {
-    if (args[['r']] == 'GRCh38') {
+if (!is.null(args[['ref']])) {
+    if (args[['ref']] == 'GRCh38') {
         library(BSgenome.Hsapiens.NCBI.GRCh38)
 
         catalog <- mut.to.sigs.input(mut.ref = mutations,

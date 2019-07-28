@@ -20,7 +20,7 @@ The input LOH segments file must be structured calls with at least 5 columns.
     - DLOH: Deletion LOH
     - ALOH: Amplification LOH
 
-Usage: run_test.R -l LOH -o OUTPUT -r GENOME [ --hrdtools HRDTOOLS ]
+Usage: run_test.R -l LOH -o OUTPUT -r GENOME [ -h HRDTOOLS ]
 
 Options:
     -l --loh LOH            Path to input LOH segments file
@@ -29,7 +29,7 @@ Options:
 
     -r --genome GENOME      Name of genome (i.e. hg19)
 
-    --hrdtools HRDTOOLS     If provided, runs in debug mode, where HRDTOOLS is the path to
+    -h --hrdtools HRDTOOLS  If provided, runs in debug mode, where HRDTOOLS is the path to
                             the HRDtools package. The package will be loaded in using 
                             devtools::load_all() instead of library(hrdtools).
 

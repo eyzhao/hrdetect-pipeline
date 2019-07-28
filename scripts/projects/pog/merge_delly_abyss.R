@@ -53,15 +53,20 @@ match <- plyr::ddply(delly_somatic, c('seqnames', 'start'), function(z) {
     z <- z %>% mutate(abyss_index = abyss_index)
     return(z)
 }) %>% 
-    filter(!is.na(abyss_index)) %>%
-    inner_join(abyss_tidy, by = 'abyss_index')
+    filter(!is.na(abyss_index))
 
-print(match %>% as_tibble)
+if (nrow(match) > 0) {
+    match <- match %>%
+        inner_join(abyss_tidy, by = 'abyss_index')
 
-match %>% dplyr::select(chr1, 
-                 pos1, 
-                 chr2, 
-                 pos2,
-                 type = SVTYPE
-                 ) %>%
-    write_tsv(path = output_path)
+    match %>% dplyr::select(chr1, 
+                     pos1, 
+                     chr2, 
+                     pos2,
+                     type = SVTYPE
+                     ) %>%
+        write_tsv(path = output_path)
+} else {
+    tribble(~chr1, ~pos1, ~chr2, ~pos2, ~type) %>%
+        write_tsv(path = output_path)
+}

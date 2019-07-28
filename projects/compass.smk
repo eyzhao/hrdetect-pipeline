@@ -39,7 +39,7 @@ rule compass_snvs_and_indels:
     log:
         'logs/data/compass/all/patients/{patient}/{sample}/somatic_snvs.log',
     shell:
-        'Rscript ' + PROJECT_DIR + '/scripts/projects/compass/vcf_to_snv_indel.R -v {input} -s {output.snv} -i {output.indel}'
+        'Rscript scripts/projects/compass/vcf_to_snv_indel.R -v {input} -s {output.snv} -i {output.indel}'
 
 rule compass_segments:
     input:
@@ -49,7 +49,7 @@ rule compass_segments:
     log:
         'logs/data/compass/all/patients/{patient}/{sample}/segments.log'
     shell:
-        'Rscript ' + PROJECT_DIR + '/scripts/projects/compass/format_segments.R -i {input} -o {output}'
+        'Rscript scripts/projects/compass/format_segments.R -i {input} -o {output}'
 
 rule compass_sv:
     input:
@@ -59,5 +59,5 @@ rule compass_sv:
     log:
         'logs/data/compass/all/patients/{patient}/{sample}/somatic_sv.log'
     shell:
-        'Rscript ' + PROJECT_DIR + '/scripts/projects/compass/format_sv.R -i {input} -o {output}'
+        'Rscript /scripts/projects/compass/format_sv.R -i {input} -o {output}'
 
